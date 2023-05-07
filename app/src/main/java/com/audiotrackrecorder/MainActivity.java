@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 , Consts.AUDIO_FORMAT, minBufferSize);
 
         final byte[] data = new byte[minBufferSize];
-        final File file = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
+        final File file = new File(Environment.getExternalStorageDirectory().getPath()+"/11", "test.pcm");
         if (!file.mkdirs()) {
             Log.e(TAG, "Directory not created");
         }
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         );
         mAudioTrack.play();
 
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
+        File file = new File(Environment.getExternalStorageDirectory().getPath()+"/11", "test.pcm");
         try {
             is = new FileInputStream(file);
             new Thread(new Runnable() {
@@ -233,11 +233,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_convert:
                 PcmToWavUtil pcmToWavUtil = new PcmToWavUtil(Consts.SAMPLE_RATE_INHZ, Consts.CHANNEL_CONFIG, Consts.AUDIO_FORMAT);
-                File pcmFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
-                File wavFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.wav");
+                File pcmFile = new File(Environment.getExternalStorageDirectory().getPath()+"/11", "test.pcm");
+                File wavFile = new File(Environment.getExternalStorageDirectory().getPath()+"/11", "test.wav");
                 if (pcmFile.exists()) {
                     wavFile.delete();
                 }
+                Log.e(TAG, wavFile.getPath());
                 pcmToWavUtil.pcmToWav(pcmFile.getAbsolutePath(), wavFile.getAbsolutePath());
                 break;
             case R.id.btn_play:
